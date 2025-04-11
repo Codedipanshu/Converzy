@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = "http://localhost:3000"; // Change this if backend is deployed
+const API_BASE = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"; // Change this if backend is deployed
 
 // Upload image/PDF and get OCR text
 export const uploadFile = async (file, type) => {
