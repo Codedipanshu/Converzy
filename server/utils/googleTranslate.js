@@ -1,6 +1,10 @@
 import { Translate } from "@google-cloud/translate/build/src/v2/index.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-const translateClient = new Translate();
+const translateClient = new Translate({
+  credentials: JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS),
+});
 
 export const translateText = async (text, target) => {
   try {

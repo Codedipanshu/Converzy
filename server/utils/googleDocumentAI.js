@@ -3,7 +3,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const documentClient = new DocumentProcessorServiceClient();
+const documentClient = new DocumentProcessorServiceClient({
+  credentials: JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS),
+});
 const projectId = process.env.GOOGLE_PROJECTID;
 const location = process.env.GOOGLE_LOCATION;
 const processorId = process.env.GOOGLE_PROCESSID;
