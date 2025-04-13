@@ -2,6 +2,17 @@ import axios from "axios";
 
 const API_BASE = import.meta.env.VITE_BACKEND_URL || "http://localhost:3000"; // Change this if backend is deployed
 
+const errorHandling = (error) => {
+  if (error.response && error.response.status === 429) {
+    // Handle rate limit error (status 429)
+    alert("Limit exceeded. Please try after 15 minutes.");
+  } else {
+    // Handle other errors
+    console.error("OCR Error:", error);
+    return "Error extracting text";
+  }
+};
+
 // Upload image/PDF and get OCR text
 export const uploadFile = async (file, type) => {
   const formData = new FormData();
@@ -15,8 +26,7 @@ export const uploadFile = async (file, type) => {
     });
     return response.data.text;
   } catch (error) {
-    console.error("OCR Error:", error);
-    return "Error extracting text";
+    errorHandling(error);
   }
 };
 
@@ -29,7 +39,6 @@ export const translate = async (text, target) => {
     });
     return response.data.translatedText;
   } catch (error) {
-    console.error("Translation Error:", error);
-    return "Translation failed";
+    errorHandling(error);
   }
 };
